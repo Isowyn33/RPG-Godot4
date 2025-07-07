@@ -82,22 +82,22 @@ region = Rect2(192, 224, 32, 32)
 [sub_resource type="SpriteFrames" id="SpriteFrames_7r4po"]
 animations = [{
 "frames": [{
-"duration": 1.0,
+"duration": 1.1,
 "texture": SubResource("AtlasTexture_614tr")
 }, {
-"duration": 1.0,
+"duration": 1.1,
 "texture": SubResource("AtlasTexture_rsyu2")
 }, {
-"duration": 1.0,
+"duration": 1.1,
 "texture": SubResource("AtlasTexture_n4lfa")
 }, {
-"duration": 1.0,
+"duration": 1.1,
 "texture": SubResource("AtlasTexture_batjq")
 }, {
-"duration": 1.0,
+"duration": 1.1,
 "texture": SubResource("AtlasTexture_hkdl5")
 }],
-"loop": true,
+"loop": false,
 "name": &"death",
 "speed": 5.0
 }, {
@@ -168,9 +168,7 @@ script = ExtResource("1_614tr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_7r4po")
-animation = &"walk"
-frame = 6
-frame_progress = 0.64499
+animation = &"death"
 offset = Vector2(0, -6)
 
 [node name="detection_area" type="Area2D" parent="."]
@@ -192,6 +190,25 @@ shape = SubResource("CircleShape2D_614tr")
 [node name="take_damage_cooldown" type="Timer" parent="."]
 wait_time = 0.5
 
+[node name="healthbar" type="ProgressBar" parent="."]
+modulate = Color(0, 0.734268, 0.0741633, 1)
+offset_left = -6.0
+offset_top = 2.0
+offset_right = 114.0
+offset_bottom = 22.0
+scale = Vector2(0.1, 0.1)
+show_percentage = false
+
+[node name="name_label" type="Label" parent="."]
+offset_left = -11.0
+offset_top = -21.0
+offset_right = 63.0
+offset_bottom = 2.0
+scale = Vector2(0.3, 0.3)
+text = "Slime lvl 1"
+horizontal_alignment = 1
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]
 [connection signal="body_entered" from="enemy_hitbox" to="." method="_on_enemy_hitbox_body_entered"]

@@ -1,7 +1,7 @@
 extends Node
-
+var player_name = ""
 var player_current_attack = false
-
+var ennemies_killed = {}
 var current_scene = "world" # world cliff_side
 var transition_scene = false
 

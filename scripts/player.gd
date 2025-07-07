@@ -4,14 +4,16 @@ extends CharacterBody2D
 
 var ennemy_in_attack_range = false
 var ennemy_attack_cooldown = true
-var health = 160
+var health = 100
 var player_alive = true
 var attack_ip = false
+var player_name = "Player"
 
 const speed = 100
 var current_dir = "down"
 
 func _ready():
+	$player_name_label.text = Global.player_name
 	$AnimatedSprite2D.play("front_idle")
 	camera.make_current()
 
@@ -19,16 +21,17 @@ func _physics_process(delta: float) -> void:
 	player_movement(delta)
 	ennemy_attack()
 	attack()
+	update_health()
 	
 	if health <= 0:
 		player_alive = false
 		$AnimatedSprite2D.play("death")
 		health = 0
-		print("Player has been killed")
-		self.queue_free()
 	
 func player_movement(delta):
-	
+	if player_alive == false:
+		return
+
 	if Input.is_action_pressed("ui_right"):
 		current_dir = "right"
 		play_anim(1)
@@ -105,7 +108,7 @@ func _on_player_hitbox_body_exited(body: Node2D) -> void:
 		
 func ennemy_attack():
 	if ennemy_in_attack_range and ennemy_attack_cooldown == true:
-		health -= 20
+		health -= 10
 		ennemy_attack_cooldown = false
 		$attack_cooldown.start()
 		print(health)
@@ -146,3 +149,30 @@ func current_camera():
 		$world_camera.make_current()
 	elif Global.current_scene == "cliff_side":
 		$cliffside_camera.make_current()
+
+
+func update_health():
+	var healthbar = $healthbar
+	healthbar.value = health
+	
+	if health >= 100:
+		healthbar.visible = false
+	else:
+		healthbar.visible = true
+
+func _on_regen_timer_timeout() -> void:
+	if health < 100:
+		health += 20
+		if health > 100:
+			health = 100
+	elif health == 0:
+		health = 0
+
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	if $AnimatedSprite2D.animation == "death":
+		self.hide()
+		set_process(false)
+		var game_over_scene = load("res://scenes/game_over.tscn")
+		var game_over = game_over_scene.instantiate()
+		get_tree().current_scene.add_child(game_over)

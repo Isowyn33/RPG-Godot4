@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgnhnusr82y8l"]
+
+[ext_resource type="Script" uid="uid://fxfffj4vofha" path="res://scripts/main_menu.gd" id="1_l6cm7"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_l6cm7")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+offset_left = 3.0
+offset_top = 1.0
+offset_right = 1153.0
+offset_bottom = 644.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="welcome_label" type="Label" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+text = "Welcome to the game"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="player_name_textedit" type="TextEdit" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 30)
+layout_mode = 2
+placeholder_text = "Player Name"
+emoji_menu_enabled = false
+drag_and_drop_selection_enabled = false
+middle_mouse_paste_enabled = false
+scroll_fit_content_height = true
+scroll_fit_content_width = true
+
+[node name="start_button" type="Button" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 30)
+layout_mode = 2
+text = "Start"
+
+[node name="quit_button" type="Button" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 30)
+layout_mode = 2
+text = "Quit"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/start_button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/quit_button" to="." method="_on_quit_button_pressed"]

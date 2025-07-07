@@ -282,7 +282,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_a38lo")
 }],
-"loop": true,
+"loop": false,
 "name": &"death",
 "speed": 5.0
 }, {
@@ -428,7 +428,9 @@ script = ExtResource("1_g2els")
 y_sort_enabled = true
 position = Vector2(0, -20)
 sprite_frames = SubResource("SpriteFrames_u8vuu")
-animation = &"front_attack"
+animation = &"death"
+frame = 2
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 y_sort_enabled = true
@@ -477,7 +479,31 @@ drag_vertical_enabled = true
 zoom = Vector2(3, 3)
 rotation_smoothing_enabled = true
 
+[node name="healthbar" type="ProgressBar" parent="."]
+modulate = Color(2.59906e-06, 0.807971, 0.0343222, 1)
+offset_left = -6.0
+offset_top = -2.0
+offset_right = 124.0
+offset_bottom = 25.0
+scale = Vector2(0.1, 0.1)
+show_percentage = false
+
+[node name="regen_timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="player_name_label" type="Label" parent="."]
+offset_left = -20.0
+offset_top = -31.0
+offset_right = 80.0
+offset_bottom = -8.0
+scale = Vector2(0.4, 0.4)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
 [connection signal="body_exited" from="player_hitbox" to="." method="_on_player_hitbox_body_exited"]
 [connection signal="timeout" from="attack_cooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="deal_attack_timer" to="." method="_on_deal_attack_timer_timeout"]
+[connection signal="timeout" from="regen_timer" to="." method="_on_regen_timer_timeout"]
