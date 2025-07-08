@@ -119,7 +119,7 @@ func _on_attack_cooldown_timeout() -> void:
 
 func attack():
 	var dir = current_dir
-	
+
 	if Input.is_action_just_pressed("attack"):
 		Global.player_current_attack = true
 		attack_ip = true

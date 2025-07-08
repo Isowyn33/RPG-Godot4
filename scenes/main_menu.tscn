@@ -36,7 +36,7 @@ scroll_fit_content_width = true
 [node name="start_button" type="Button" parent="CenterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 30)
 layout_mode = 2
-text = "Start"
+text = "Start adventure"
 
 [node name="quit_button" type="Button" parent="CenterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 30)
